@@ -8,7 +8,7 @@ namespace SocketClient
     {
         static void Main(string[] args)
         {
-
+            Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
     }
 }
