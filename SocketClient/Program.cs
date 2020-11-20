@@ -59,7 +59,18 @@ namespace SocketClient
 
                     client.Send(buffer);
 
+                    if (sendString.ToUpper().Trim() == "QUIT")
+                    {
+                        break;
+                    }
+
                     Array.Clear(buffer, 0, buffer.Length);
+                    
+                    receivedBytes = client.Receive(buffer);
+
+                    receiveString = Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+
+                    Console.WriteLine("S: " + receiveString);
                 }
             }
             catch (Exception ex)
