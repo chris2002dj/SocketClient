@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace SocketClient
 {
@@ -41,6 +42,25 @@ namespace SocketClient
                 Console.WriteLine("Endpint del server: " + ipAddress.ToString() + " " + nPort);
 
                 client.Connect(ipAddress, nPort);
+
+                // Server
+                byte[] buffer = new byte[128];
+                string sendString = "";
+                string receiveString = "";
+                int receivedBytes = 0;
+
+                while (true)
+                {
+                    Console.WriteLine("Manda un messaggio: ");
+
+                    sendString = Console.ReadLine();
+
+                    buffer = Encoding.ASCII.GetBytes(sendString);
+
+                    client.Send(buffer);
+
+                    Array.Clear(buffer, 0, buffer.Length);
+                }
             }
             catch (Exception ex)
             {
