@@ -32,6 +32,15 @@ namespace SocketClient
                     Console.WriteLine("Porta non valida");
                     return;
                 }
+                if (nPort<=0 || nPort>=65535)
+                {
+                    Console.WriteLine("Porta non valida");
+                    return;
+                }
+
+                Console.WriteLine("Endpint del server: " + ipAddress.ToString() + " " + nPort);
+
+                client.Connect(ipAddress, nPort);
             }
             catch (Exception ex)
             {
