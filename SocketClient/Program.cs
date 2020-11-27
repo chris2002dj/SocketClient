@@ -44,7 +44,8 @@ namespace SocketClient
                 client.Connect(ipAddress, nPort);
 
                 // Server
-                byte[] buffer = new byte[128];
+                byte[] sendbuffer = new byte[128];
+                byte[] recvbuffer = new byte[128];
                 string sendString = "";
                 string receiveString = "";
                 int receivedBytes = 0;
@@ -55,20 +56,20 @@ namespace SocketClient
 
                     sendString = Console.ReadLine();
 
-                    buffer = Encoding.ASCII.GetBytes(sendString);
+                    sendbuffer = Encoding.ASCII.GetBytes(sendString);
 
-                    client.Send(buffer);
+                    client.Send(sendbuffer);
 
                     if (sendString.ToUpper().Trim() == "QUIT")
                     {
                         break;
                     }
 
-                    Array.Clear(buffer, 0, buffer.Length);
+                    Array.Clear(recvbuffer, 0, recvbuffer.Length);
                     
-                    receivedBytes = client.Receive(buffer);
+                    receivedBytes = client.Receive(recvbuffer);
 
-                    receiveString = Encoding.ASCII.GetString(buffer, 0, receivedBytes);
+                    receiveString = Encoding.ASCII.GetString(recvbuffer, 0, receivedBytes);
 
                     Console.WriteLine("S: " + receiveString);
                 }
