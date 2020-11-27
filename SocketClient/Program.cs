@@ -78,6 +78,19 @@ namespace SocketClient
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                /*In ogni sessione chiudo la connessione in sicurezza*/
+                if (client != null)
+                {
+                    if (client.Connected)
+                    {
+                        client.Shutdown(SocketShutdown.Both); // disabilita la send e receive
+                    }
+                    client.Close();
+                    client.Dispose();
+                }
+            }
         }
     }
 }
